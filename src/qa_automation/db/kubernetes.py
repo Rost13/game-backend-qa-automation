@@ -277,7 +277,9 @@ class KubectlPostgresTunnel:
 
     @staticmethod
     def _creation_flags() -> int:
-        return subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0
+        if os.name != "nt":
+            return 0
+        return int(getattr(subprocess, "CREATE_NO_WINDOW", 0))
 
     @staticmethod
     def _required_setting(value: str | None) -> str:
