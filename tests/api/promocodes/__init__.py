@@ -1,0 +1,1 @@
+"""Promocodes API tests."""

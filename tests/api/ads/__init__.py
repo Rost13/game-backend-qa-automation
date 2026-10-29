@@ -1,0 +1,1 @@
+"""Ads Service API coverage."""

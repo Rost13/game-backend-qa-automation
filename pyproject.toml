@@ -1,0 +1,68 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "game-backend-qa-automation"
+version = "0.1.0"
+description = "Environment-neutral API and integration test automation for game backend services"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "allure-pytest>=2.14,<3",
+    "httpx>=0.28,<1",
+    "psycopg[binary]>=3.2,<4",
+    "pydantic>=2.11,<3",
+    "pydantic-settings>=2.10,<3",
+    "pytest>=8.3,<10",
+]
+
+[project.optional-dependencies]
+quality = [
+    "mypy>=1.15,<2",
+    "ruff>=0.11,<1",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-config --strict-markers"
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+xfail_strict = true
+markers = [
+    "api: deployed-service API tests",
+    "contract: checks deployed responses against the published API contract",
+    "integration: tests that verify integration boundaries such as PostgreSQL",
+    "live: tests that call a deployed environment",
+    "regression: broader risk-based regression coverage",
+    "serial: stateful tests that must not run concurrently",
+    "smoke: fast business-critical checks",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+src = ["src", "tests", "fixtures"]
+extend-exclude = ["AGENTS.md"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src", "tests", "fixtures", "conftest.py"]
+plugins = ["pydantic.mypy"]
+warn_unreachable = true
+show_error_codes = true
+
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+disallow_untyped_calls = false
+disallow_untyped_decorators = false

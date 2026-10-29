@@ -1,0 +1,1 @@
+"""Lottery cross-service coverage."""

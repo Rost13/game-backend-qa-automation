@@ -1,0 +1,16 @@
+pytest_plugins = (
+    "fixtures.ads",
+    "fixtures.balance",
+    "fixtures.battle_pass",
+    "fixtures.boosters",
+    "fixtures.daily_quests",
+    "fixtures.environment",
+    "fixtures.goods",
+    "fixtures.inventory",
+    "fixtures.lottery",
+    "fixtures.market_proxy",
+    "fixtures.promocodes",
+    "fixtures.profile",
+    "fixtures.social",
+    "fixtures.stat_api",
+)
